@@ -1,0 +1,46 @@
+{
+  user(login: "$USERNAME$") {
+    login
+    name
+    url
+    avatarUrl
+    followers {
+      totalCount
+    }
+    forks: repositories(first: 100, isFork: true, privacy: PUBLIC) {
+      totalCount
+    }
+    activity: contributionsCollection(from: "$TIMESTAMP_7DAYSAGO$", to: "$TIMESTAMP_YESTERDAY$") {
+      latestRepo: commitContributionsByRepository(maxRepositories: 1) {
+        contributions(last: 1) {
+          repos: nodes {
+            repository {
+              name
+              updatedAt
+              url
+            }
+          }
+        }
+      }
+      contributionCalendar {
+        weeks {
+          contributionDays {
+            contributionCount
+            date
+          }
+        }
+      }
+    }
+    sources: repositories(first: 100, isFork: false, ownerAffiliations: OWNER, orderBy: {field: STARGAZERS, direction: DESC}) {
+      repos: nodes {
+        stargazers {
+          totalCount
+        }
+        primaryLanguage {
+          name
+        }
+      }
+      totalCount
+    }
+  }
+}
