@@ -1,6 +1,6 @@
 # github-badge-2
  
-Simpler implementation, utilizing GitHub's GraphQL API, and fork of:
+Simpler implementation, utilizing GitHub's GraphQL API, and fork of:  
 https://github.com/berkerpeksag/github-badge
 
 ## Usage
