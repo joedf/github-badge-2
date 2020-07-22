@@ -8,5 +8,12 @@ Simply update `config.json` with your username and github api_key that has user 
 
 Then, set up a cron job or whatever you can use for a recurring / scheduled tasks to run the script periodically (something like every 24hrs) to update the generated `badge.html`.
 
+Remember to set permissions to deny requests all files other than the generated html file.
+
+You can then include the widget with the following code in similar form to:
+```html
+<iframe src="https://MyWebsite.com/badge.html" style="border: 0;height: 128px;width: 200px;overflow: hidden;" frameBorder="0"></iframe>
+```
+
 ## Preview
 ![example](preview.png)
