@@ -132,7 +132,8 @@ def GitHubStats(rObj):
 		for days in weeks['contributionDays']:
 			contribs.append({
 				'count': days['contributionCount'],
-				'date': datetime.fromisoformat(days['date'])
+				#'date': datetime.fromisoformat(days['date']) # python v3.8+
+				'date': days['date']
 			})
 
 	# get recent max commits
