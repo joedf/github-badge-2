@@ -12,7 +12,7 @@ Remember to set permissions to deny requests all files other than the generated 
 
 You can then include the widget with the following code in similar form to:
 ```html
-<iframe src="https://MyWebsite.com/badge.html" style="border: 0;height: 128px;width: 200px;overflow: hidden;" frameBorder="0"></iframe>
+<iframe src="https://MyWebsite.com/badge.html" style="border:0;height:128px;width:200px;overflow:hidden;" frameBorder="0"></iframe>
 ```
 
 ## Preview
