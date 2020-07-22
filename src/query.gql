@@ -1,13 +1,13 @@
 {
+  forks: search(query: "user:joedf fork:only", type: REPOSITORY, first: 1) {
+    repositoryCount
+  }
   user(login: "$USERNAME$") {
     login
     name
     url
     avatarUrl
     followers {
-      totalCount
-    }
-    forks: repositories(first: 100, isFork: true, privacy: PUBLIC) {
       totalCount
     }
     activity: contributionsCollection(from: "$TIMESTAMP_7DAYSAGO$", to: "$TIMESTAMP_YESTERDAY$") {

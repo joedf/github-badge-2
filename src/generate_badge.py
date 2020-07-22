@@ -148,7 +148,7 @@ def GitHubStats(rObj):
 		'followers':         u['followers']['totalCount'],
 		'stargazers':        stargazers,
 		'repos':             u['sources']['totalCount'],
-		'forks':             u['forks']['totalCount'],
+		'forks':             d['forks']['repositoryCount'],
 		'html_url':          u['url'],
 		'avatar_url':        u['avatarUrl'],
 		'languages':         topLangs,
