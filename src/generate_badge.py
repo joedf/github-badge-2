@@ -1,4 +1,5 @@
-import math
+import os
+import sys
 import json
 import requests
 from pprint import pprint
@@ -9,6 +10,9 @@ from jinja2 import __version__ as jinja2_version
 from jinja2 import Environment
 from jinja2 import FileSystemLoader
 
+
+# ensure script working dir
+os.chdir(sys.path[0])
 
 
 # code from GitHub\github-badge\app\customfilters.py
