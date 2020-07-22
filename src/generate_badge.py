@@ -1,4 +1,5 @@
 import math
+import json
 import requests
 from pprint import pprint
 from datetime import datetime, timedelta
@@ -176,10 +177,14 @@ def GitHubStats(rObj):
 # print jinja and python version
 print('Script is running jinja v{} on Python v{}'.format(jinja2_version,python_version()))
 
+# load config file
+with open("config.json", "r", encoding='utf-8') as fp:
+	config = json.load(fp)
+
 # prep query data
-GITHUB_API_KEY = file2str('apikey.txt')
-query = file2str('query.gql') \
-	.replace('$USERNAME$', 'joedf') \
+GITHUB_API_KEY = config['apikey']
+query = file2str(config['queryfile']) \
+	.replace('$USERNAME$', config['username']) \
 	.replace('$TIMESTAMP_7DAYSAGO$', (datetime.now() - timedelta(7)).isoformat()) \
 	.replace('$TIMESTAMP_YESTERDAY$', (datetime.now() - timedelta(1)).isoformat())
 
