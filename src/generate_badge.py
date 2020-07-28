@@ -120,12 +120,14 @@ def GitHubStats(rObj):
 	topLangs = []
 
 	for repo in u['sources']['repos']:
-		lang = repo['primaryLanguage']['name']
+		# process any primary langs
+		if (repo['primaryLanguage']) and len(repo['primaryLanguage']):
+			lang = repo['primaryLanguage']['name']
+			if lang not in topLangs:
+				topLangs.append(lang)
+		
+		# add stargazers to sum
 		stars = repo['stargazers']['totalCount']
-
-		if lang not in topLangs:
-			topLangs.append(lang)
-
 		stargazers += stars
 
 
@@ -209,6 +211,7 @@ GH_Data = {
 # setup jinja2
 print('\nrunning jinja2 ...')
 G_j2_env = Environment( loader=FileSystemLoader('.') )
+G_j2_env.globals['DATETIME_NOW'] = datetime.now()
 G_j2_env.filters['shortnum'] = shortnum
 G_j2_env.filters['smarttruncate'] = smarttruncate
 
