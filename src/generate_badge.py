@@ -113,7 +113,11 @@ def GitHubStats(rObj):
 	d = rObj['data']
 	u = d['user']
 	a = u['activity']
-	lr = a['latestRepo'][0]['contributions']['repos'][0]['repository']
+
+	try:
+		lr = a['latestRepo'][0]['contributions']['repos'][0]['repository']
+	except:
+		lr = {}
 
 	# get stargarzers tally and top primary langs
 	stargazers = 0
@@ -158,9 +162,9 @@ def GitHubStats(rObj):
 		'html_url':          u['url'],
 		'avatar_url':        u['avatarUrl'],
 		'languages':         topLangs,
-		'last_project':      lr['name'],
-		'last_project_url':  lr['url'],
-		'last_project_date': datetime.strptime(lr['updatedAt'], '%Y-%m-%dT%H:%M:%SZ'),
+		'last_project':      lr.get('name', False),
+		'last_project_url':  lr.get('url'),
+		'last_project_date': datetime.strptime(lr.get('updatedAt', "1970-01-01T00:00:00Z"), '%Y-%m-%dT%H:%M:%SZ'), # bogus date if last_project is n/a.
 		'contribs':          contribs,
 		'max_commits':       max_commits
 	}
