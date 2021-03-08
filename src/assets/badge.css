@@ -142,3 +142,30 @@ abbr {
     margin-right: 0;
     padding-right: 0;
 }
+
+/* Dark/Night mode/theme adjustments */
+body.dark {
+    filter: invert(1);
+    background: black;
+}
+
+.dark a {
+    color: #c64343;
+}
+
+.dark #user-login {
+    background-color: #e9e4dd;
+}
+
+.dark #user-content {
+    background: -moz-linear-gradient(top, #fafafa, #f2eee8);
+}
+
+.dark #user-avatar .avatar {
+    filter: invert(1);
+    border-color: #444;
+}
+
+.dark #user-graph #sparkline {
+    filter: hue-rotate(120deg) saturate(3);
+}

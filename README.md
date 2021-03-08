@@ -15,5 +15,8 @@ You can then include the widget with the following code in similar form to:
 <iframe src="https://MyWebsite.com/badge.html" style="border:0;height:128px;width:200px;overflow:hidden;" frameBorder="0"></iframe>
 ```
 
+## Dark theme / Night mode
+You can use the dark theme by specifying `class="dark"` on `<body>` in the html template.
+
 ## Preview
 ![example](preview.png)
