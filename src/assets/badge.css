@@ -146,7 +146,6 @@ abbr {
 /* Dark/Night mode/theme adjustments */
 body.dark {
     filter: invert(1);
-    background: black;
 }
 
 .dark a {
