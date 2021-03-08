@@ -19,4 +19,4 @@ You can then include the widget with the following code in similar form to:
 You can use the dark theme by specifying `class="dark"` on `<body>` in the html template.
 
 ## Preview
-![example](preview.png)
+![Light theme](preview.png) ![Dark theme](preview.png)
