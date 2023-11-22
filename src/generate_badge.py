@@ -194,6 +194,9 @@ with open("config.json", "r", encoding='utf-8') as fp:
 
 # prep query data
 GITHUB_API_KEY = config['apikey']
+if len(sys.argv) > 1:
+	# check if we provided one as a command parameter
+	GITHUB_API_KEY = sys.argv[1]
 query = file2str(config['queryfile']) \
 	.replace('$USERNAME$', config['username']) \
 	.replace('$TIMESTAMP_7DAYSAGO$', (datetime.now() - timedelta(7)).isoformat()) \
