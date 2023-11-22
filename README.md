@@ -8,7 +8,7 @@ Simply update `config.json` with your username and github api_key that has user 
 
 Then, set up a cron job or whatever you can use for a recurring / scheduled tasks to run the script periodically (something like every 24hrs) to update the generated `badge.html`. Or you can setup a free jinja webapp like on [pythonanywhere.com](https://pythonanywhere.com/) and simply check if the generated html exists or if modified date of the html file is greater than 1 day, see [example script](https://gist.github.com/joedf/84279ff7647d554a9d15f280a209c6b7).
 
-For GitHub Actions, see [update-badge-html.yml](.github/workflows/update-badge-html.yml) for example usage.
+For GitHub Actions with GitHub Pages, see [update-badge-html.yml](.github/workflows/update-badge-html.yml) for example usage. You will need to set the GitHub Pages repository setting to use the `gh-pages` branch.
 
 Remember to set permissions to deny requests all files other than the generated html file.
 
