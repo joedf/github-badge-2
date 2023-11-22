@@ -18,7 +18,7 @@ You can then include the widget with the following code in similar form to:
 ```
 
 ## Dark theme / Night mode
-You can use the dark theme by specifying `class="dark"` on `<body>` in the html template.
+You can use the dark theme by specifying `class="dark"` on `<body>` in the html template. Or you can add `?theme=dark` to the end of the URL used for the `iframe`.
 
 ## Preview
 ![Light theme](preview.png) ![Dark theme](preview.dark.png)

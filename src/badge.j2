@@ -7,6 +7,13 @@
         <link rel="stylesheet" href="assets/badge.css" media="screen">
     </head>
     <body>
+        <script>
+            // Set the dark theme if set in the URL...
+            const urlParams = new URLSearchParams(window.location.search)
+            if (urlParams.get('theme') == 'dark') {
+                document.body.classList.add('dark');
+            }
+        </script>
         <div class="clear">
             <div class="clear" id="user-login">
                 <div id="user-avatar">
