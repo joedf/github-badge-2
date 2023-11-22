@@ -16,7 +16,7 @@
           repos: nodes {
             repository {
               name
-              updatedAt
+              pushedAt
               url
             }
           }

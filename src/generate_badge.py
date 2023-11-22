@@ -164,7 +164,7 @@ def GitHubStats(rObj):
 		'languages':         topLangs,
 		'last_project':      lr.get('name', False),
 		'last_project_url':  lr.get('url'),
-		'last_project_date': datetime.strptime(lr.get('updatedAt', "1970-01-01T00:00:00Z"), '%Y-%m-%dT%H:%M:%SZ'), # bogus date if last_project is n/a.
+		'last_project_date': datetime.strptime(lr.get('pushedAt', "1970-01-01T00:00:00Z"), '%Y-%m-%dT%H:%M:%SZ'), # bogus date if last_project is n/a.
 		'contribs':          contribs,
 		'max_commits':       max_commits
 	}
