@@ -33,6 +33,7 @@ jobs:
         run: python src/generate_badge.py ${{ secrets.GH_BADGE_TOKEN }}
 
       - name: commit badge.html
+        # default url/location is https://[USERNAME].github.io/github-badge-2/src/badge.html
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Automated commit - update badge.html
