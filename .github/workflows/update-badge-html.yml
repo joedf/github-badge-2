@@ -3,8 +3,12 @@ name: update-badge-html
 # https://www.python-engineer.com/posts/run-python-github-actions/
 
 on:
-  schedule:
-    - cron: '0 0 * * 1' # At 00:00 on Monday
+  # Schedule daily updates
+  schedule: [{cron: "0 0 * * *"}]
+  # (optional) Run workflow manually
+  workflow_dispatch:
+  # (optional) Run workflow when pushing on master/main
+  push: {branches: ["master", "main"]}
 
 jobs:
   build:
