@@ -43,4 +43,5 @@ jobs:
           commit_message: Automated commit - update badge.html
           file_pattern: 'src/badge.html'
           create_branch: true
+          skip_dirty_check: true
           branch: gh-pages
