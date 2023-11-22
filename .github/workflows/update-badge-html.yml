@@ -37,5 +37,6 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Automated commit - update badge.html
+          file_pattern: 'src/badge.html'
           create_branch: true
           branch: gh-pages
