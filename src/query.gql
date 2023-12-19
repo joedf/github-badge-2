@@ -59,7 +59,9 @@
                     message
                     commitUrl
                     author {
-                      name
+                      user {
+                        login
+                      }
                     }
                   }
                 }

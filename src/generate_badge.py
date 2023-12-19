@@ -137,13 +137,13 @@ def GitHubStats(rObj, ignore_repos=None):
 				history = repo['defaultBranchRef']['target']['history']
 				if history['totalCount'] > 0:
 					lastCommit = history['nodes'][0]
-					commitAuthor = lastCommit['author']['name']
+					commitAuthor = lastCommit['author']['user']['login']
 					if commitAuthor == u['login']:
 						latestCommits.append({
 							'repo': repo['name'],
 							'message': lastCommit['message'],
 							'commitUrl': lastCommit['commitUrl'],
-							'date': lastCommit['committedDated']
+							'date': lastCommit['committedDate']
 						})
 		
 		if len(latestCommits) > 0:
@@ -154,7 +154,8 @@ def GitHubStats(rObj, ignore_repos=None):
 				if commitDate >= lastCommitDate:
 					lr = {
 						'name': commit['repo'],
-						'url': commit['commitUrl']
+						'url': commit['commitUrl'],
+						'pushedAt': commit['date']
 					}
 		else:
 			# Otherwise, we clear it since no recent commits were found with ignore_repos mode
