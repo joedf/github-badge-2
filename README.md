@@ -12,7 +12,7 @@ Then, set up a cron job or whatever you can use for a recurring / scheduled task
 Remember to set permissions to deny requests all files other than the generated html file.
 
 ### Option 2 - GitHub Actions & Pages
-For GitHub Actions with GitHub Pages, see [update-badge-html.yml](.github/workflows/update-badge-html.yml) for example usage. You will need to add a GitHub token as `GH_BADGE_TOKEN` in the repository secrets. You will also need to set the GitHub Pages repository setting to use the `gh-pages` branch.
+For GitHub Actions with GitHub Pages, see [update-badge-html.yml](.github/workflows/update-badge-html.yml) for example usage. You will need to add a GitHub token as `GH_BADGE_TOKEN` in the repository secrets. You will also need to set the GitHub Pages repository setting to use the `gh-pages` branch. You will likely want to add the repository name to `ignore_repos` in `config.json` to prevent any automated commits from being considered, see #4. Otherwise, the latest commit presented (in the widget) will nearly always be the last automated commit and not any commit by the actual user.
 
 ## Usage
 You can then include the widget with the following code in similar form to:
