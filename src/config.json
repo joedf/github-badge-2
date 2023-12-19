@@ -2,4 +2,7 @@
   "username": "joedf",
   "queryfile": "query.gql",
   "apikey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  "ignore_repos": [
+    "joedf"
+  ]
 }

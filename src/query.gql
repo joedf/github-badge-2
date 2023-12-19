@@ -43,4 +43,31 @@
       totalCount
     }
   }
+  latestCommits: search(query: "user:$USERNAME$, pushed:>$TIMESTAMP_7DAYSAGO$", type: REPOSITORY, last:100) {
+    repos: nodes {
+      ... on Repository {
+        name
+        defaultBranchRef {
+          name
+          target {
+            ... on Commit {
+              history(first: 100, since: "$TIMESTAMP_7DAYSAGO$") {
+                totalCount
+                nodes {
+                  ... on Commit {
+                    committedDate
+                    message
+                    commitUrl
+                    author {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

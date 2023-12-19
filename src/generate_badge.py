@@ -23,6 +23,7 @@ from math import log
 
 # Constants
 QUANTAS = ('k', 'M', 'G', 'T', 'P')
+EPOCH_STR = '1970-01-01T00:00:00Z'
 
 def shortnum(value, precision=3):
 	value = float(value)
@@ -85,6 +86,10 @@ def nBound(value,minimum,maximum):
 	# return a value within bounds
 	return max(min(value,maximum),minimum)
 
+def dtParseTimestamp(UTC_string):
+	# parse timestamp strings like '1970-01-01T00:00:00Z'
+	return datetime.strptime(UTC_string, '%Y-%m-%dT%H:%M:%SZ')
+
 def gen_SparklineSVG(data):
 	# generate a 7-day graph 20x14 pixels
 	iw, ih = 20, 14
@@ -109,15 +114,52 @@ def gen_SparklineSVG(data):
 
 	return svg
 
-def GitHubStats(rObj):
+def GitHubStats(rObj, ignore_repos=None):
 	d = rObj['data']
 	u = d['user']
 	a = u['activity']
 
+	# default latest commit search
+	# has issue if app is used with automated commit or GitHub Actions
+	# see the follow 'ignore_repos' code, for handling that case.
 	try:
 		lr = a['latestRepo'][0]['contributions']['repos'][0]['repository']
 	except:
 		lr = {}
+
+	# get latest commits accouting for ignored repos, see following
+	# https://github.com/joedf/github-badge-2/issues/4
+	if ignore_repos is not None:
+		latestCommits = []
+		latestCommitsRepo = d['latestCommits']['repos']
+		for repo in latestCommitsRepo:
+			if repo['name'] not in ignore_repos:
+				history = repo['defaultBranchRef']['target']['history']
+				if history['totalCount'] > 0:
+					lastCommit = history['nodes'][0]
+					commitAuthor = lastCommit['author']['name']
+					if commitAuthor == u['login']:
+						latestCommits.append({
+							'repo': repo['name'],
+							'message': lastCommit['message'],
+							'commitUrl': lastCommit['commitUrl'],
+							'date': lastCommit['committedDated']
+						})
+		
+		if len(latestCommits) > 0:
+			lastCommitDate = dtParseTimestamp(EPOCH_STR)
+			for commit in latestCommits:
+				# bogus old date to ignore error if date could not be parse, and push to bottom prio
+				commitDate = dtParseTimestamp(commit.get('date', EPOCH_STR))
+				if commitDate >= lastCommitDate:
+					lr = {
+						'name': commit['repo'],
+						'url': commit['commitUrl']
+					}
+		else:
+			# Otherwise, we clear it since no recent commits were found with ignore_repos mode
+			lr = {}
+
 
 	# get stargarzers tally and top primary langs
 	stargazers = 0
@@ -164,7 +206,7 @@ def GitHubStats(rObj):
 		'languages':         topLangs,
 		'last_project':      lr.get('name', False),
 		'last_project_url':  lr.get('url'),
-		'last_project_date': datetime.strptime(lr.get('pushedAt', "1970-01-01T00:00:00Z"), '%Y-%m-%dT%H:%M:%SZ'), # bogus date if last_project is n/a.
+		'last_project_date': dtParseTimestamp(lr.get('pushedAt', EPOCH_STR)), # bogus date if last_project is n/a.
 		'contribs':          contribs,
 		'max_commits':       max_commits
 	}
@@ -207,7 +249,7 @@ print('running GitHub GraphQL query ...\n')
 result = run_query(query)
 
 # process data
-userdata = GitHubStats(result)
+userdata = GitHubStats(result, config['ignore_repos'])
 GH_Data = {
 	'user': userdata,
 	'days': 7,
