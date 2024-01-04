@@ -90,14 +90,25 @@ def dtParseTimestamp(UTC_string):
 	# parse timestamp strings like '1970-01-01T00:00:00Z'
 	return datetime.strptime(UTC_string, '%Y-%m-%dT%H:%M:%SZ')
 
-def gen_SparklineSVG(data):
+def gen_SparklineSVG(data, minScale=1):
 	# generate a 7-day graph 20x14 pixels
 	iw, ih = 20, 14
 
-	# get max
-	m = 1 # a minimum max of 1
+	# get max and average
+	m = minScale # a minimum for the "max" value, to scale the graph with
+	total = 0
 	for day in data:
-		m = max(m,day['count'])
+		commits = day['count']
+		m = max(m, commits)
+		total += commits
+	avg = total / len(data)
+	
+	# Handle special case: low commit activity and flat-ish distribution
+	# https://github.com/joedf/github-badge-2/issues/5
+	lowActivity = (m <= minScale and avg <= m)
+	# print(f'avg={avg:.2f}  |  m={m}  |  lowActivity={lowActivity}')
+	if lowActivity:
+		m = ih / 2
 
 	# generate svg
 	svg = '<svg viewBox="0 0 {} {}" width="{}" height="{}"><g style="fill:SlateGray">\n'.format(iw,ih,iw,ih)
